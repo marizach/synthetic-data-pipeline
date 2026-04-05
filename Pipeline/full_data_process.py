@@ -5,6 +5,7 @@ Function used to process a full dataframe and save a train test split as csv.
 import argparse as ap
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 def full_data_process(file_loc, train_test_path, name, drop_cols=[]):
     
@@ -58,8 +59,10 @@ def full_data_process(file_loc, train_test_path, name, drop_cols=[]):
     df_holdout = df.drop(index=df_train.index)
     
     #df.to_csv(train_test_path + '\\' + name + '_original.csv', index=False)
-    df_train.to_csv(train_test_path + '\\' + name + '_train.csv', index=False)
-    df_holdout.to_csv(train_test_path + '\\' + name + '_holdout.csv', index=False)
+    # df_train.to_csv(train_test_path + '\\' + name + '_train.csv', index=False)
+    # df_holdout.to_csv(train_test_path + '\\' + name + '_holdout.csv', index=False)
+    df_train.to_csv(Path(train_test_path) / (name + '_train.csv'), index=False)
+    df_holdout.to_csv(Path(train_test_path) / (name + '_holdout.csv'), index=False)
     
     print('Finished processing')
     

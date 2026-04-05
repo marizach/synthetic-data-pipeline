@@ -51,12 +51,12 @@ if (dataused == 'utrecht_housing') {
 )
 }
 
-mysyn_emp_last <- syn(
-  df_fix,
-  minnumlevels = 10,
-#  visit.sequence = visit_seq,
-  print.flag = TRUE
-)
+# mysyn_emp_last <- syn(
+#   df_fix,
+#   minnumlevels = 10,
+# #  visit.sequence = visit_seq,
+#   print.flag = TRUE
+# )
 
 # saves as CSV:
 tryCatch({

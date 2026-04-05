@@ -1,0 +1,38 @@
+# need to add comments to this file
+
+dataset:
+  name: fake_nutrition
+  input_path: input_test/fake_nutrition_nl.csv
+  output_path: Results/fake_nutrition
+
+columns:
+  y_columns: [daily_kcal, protein_g, fruit_portions, gender]
+  id_columns: [age, gender, zip_code]
+  dp_columns: [age, zip_code]
+  zip_code_column: zip_code
+  drop_columns: []
+  plot_column: daily_kcal
+
+synthesis:
+  visit_sequence: [age, gender, zip_code, daily_kcal, protein_g, carbs_g, fat_g, fruit_portions]
+  methods:
+    age: cart
+    gender: cart
+    zip_code: cart
+    daily_kcal: cart
+    protein_g: cart
+    carbs_g: cart
+    fat_g: cart
+    fruit_portions: cart
+  minnumlevels: 10
+  maxfaclevels: 76
+
+evaluation:
+  epsilon: 0.8
+  sensitivity: 1
+  sample_per: 75
+  memory: 400
+
+environment:
+  rscript_loc: /opt/miniconda3/envs/sdp/bin/Rscript
+  synthpop_file: R_scripts/synthpop_script.R
