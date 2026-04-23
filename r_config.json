@@ -1,17 +1,7 @@
 {
-  "visit_sequence": [
-    "age",
-    "gender",
-    "zip_code",
-    "daily_kcal",
-    "protein_g",
-    "carbs_g",
-    "fat_g",
-    "fruit_portions"
-  ],
   "methods": {
     "age": "cart",
-    "gender": "cart",
+    "gender": "logreg",
     "zip_code": "cart",
     "daily_kcal": "cart",
     "protein_g": "cart",
@@ -20,5 +10,5 @@
     "fruit_portions": "cart"
   },
   "minnumlevels": 10,
-  "maxfaclevels": 76
+  "maxfaclevels": 60
 }

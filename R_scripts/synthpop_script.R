@@ -2,6 +2,7 @@ rm(list = ls())
 cat("Starting\n")
 
 suppressPackageStartupMessages(library(synthpop))
+library(jsonlite)
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) < 4) stop("Use: Rscript script.R <train_csv> <out_csv>")
@@ -9,7 +10,8 @@ if (length(args) < 4) stop("Use: Rscript script.R <train_csv> <out_csv>")
 train_loc <- args[1]
 synth_loc <- args[2]
 zip_code_column <- args[3]
-dataused <- args[4]
+r_config <- fromJSON(args[4])
+
 
 cat(train_loc, "\n")
 cat(synth_loc, "\n")
@@ -32,31 +34,30 @@ for (z in zip_cols) df_fix[[z]] <- as.factor(df_fix[[z]])
 #na_counts <- colSums(is.na(df_fix))
 #visit_seq <- names(df_fix)[order(na_counts, decreasing = FALSE)]
 
-if (dataused == 'utrecht_housing') {
-  na_counts <- colSums(is.na(df_fix))
-  visit_seq <- c(zip_cols, setdiff(names(df_fix)[order(na_counts, decreasing = FALSE)], zip_cols))
+method_vec <- setNames(unlist(r_config$methods), names(r_config$methods))
+
+visit_seq <- r_config$visit_sequence
+set.seed(42)
+
+if (!is.null(visit_seq) && length(visit_seq) > 0) {
   mysyn_emp_last <- syn(
     df_fix,
-    minnumlevels = 10,
-    maxfaclevels = 76,
+    method = method_vec,
+    minnumlevels = r_config$minnumlevels,
+    maxfaclevels = r_config$maxfaclevels,
     visit.sequence = visit_seq,
     print.flag = TRUE
   )
 } else {
   mysyn_emp_last <- syn(
-  df_fix,
-  minnumlevels = 10,
-#  visit.sequence = visit_seq,
-  print.flag = TRUE
-)
+    df_fix,
+    # method = method_vec,
+    minnumlevels = r_config$minnumlevels,
+    # maxfaclevels = r_config$maxfaclevels,
+    print.flag = TRUE
+  )
 }
 
-# mysyn_emp_last <- syn(
-#   df_fix,
-#   minnumlevels = 10,
-# #  visit.sequence = visit_seq,
-#   print.flag = TRUE
-# )
 
 # saves as CSV:
 tryCatch({

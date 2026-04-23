@@ -14,10 +14,10 @@ columns:
   plot_column: daily_kcal
 
 synthesis:
-  visit_sequence: [age, gender, zip_code, daily_kcal, protein_g, carbs_g, fat_g, fruit_portions]
+  # visit_sequence: [age, gender, zip_code, daily_kcal, protein_g, carbs_g, fat_g, fruit_portions]
   methods:
     age: cart
-    gender: cart
+    gender: logreg
     zip_code: cart
     daily_kcal: cart
     protein_g: cart
@@ -25,7 +25,7 @@ synthesis:
     fat_g: cart
     fruit_portions: cart
   minnumlevels: 10
-  maxfaclevels: 76
+  maxfaclevels: 60
 
 evaluation:
   epsilon: 0.8
@@ -34,5 +34,5 @@ evaluation:
   memory: 400
 
 environment:
-  rscript_loc: /opt/miniconda3/envs/sdp/bin/Rscript
+  rscript_loc: /Library/Frameworks/R.framework/Resources/bin/Rscript
   synthpop_file: R_scripts/synthpop_script.R
