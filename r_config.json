@@ -1,7 +1,17 @@
 {
+  "visit_sequence": [
+    "daily_kcal",
+    "protein_g",
+    "carbs_g",
+    "gender",
+    "fat_g",
+    "fruit_portions",
+    "zip_code",
+    "age"
+  ],
   "methods": {
     "age": "cart",
-    "gender": "logreg",
+    "gender": "polyreg",
     "zip_code": "cart",
     "daily_kcal": "cart",
     "protein_g": "cart",
